@@ -1,0 +1,73 @@
+[gd_scene load_steps=9 format=3 uid="uid://cq8j7xfd5tc5d"]
+
+[ext_resource type="Script" path="res://mouse.gd" id="1_1gsmb"]
+[ext_resource type="Texture2D" uid="uid://blskaye5vxufe" path="res://assets/images/Mouse01.png" id="1_446ux"]
+[ext_resource type="Texture2D" uid="uid://5caaqi0iwpg" path="res://assets/images/dustParticle-1.png" id="2_kt4d1"]
+[ext_resource type="AudioStream" uid="uid://ch0vndtb0pp85" path="res://assets/sound/Eat_Mouse-01.ogg" id="4_mxs2a"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6y6hj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_446ux")
+}],
+"loop": true,
+"name": &"rest",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oedsl"]
+size = Vector2(50, 22)
+
+[sub_resource type="Curve" id="Curve_7fl6u"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.975, 6.54547), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_rf2q2"]
+offsets = PackedFloat32Array(0, 0.359862)
+
+[node name="mouse" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_1gsmb")
+mouseSpeed = 500.0
+mouseScore = 150
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_6y6hj")
+animation = &"rest"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_oedsl")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(1, 9)
+amount = 30
+lifetime = 0.4
+speed_scale = 0.3
+texture = ExtResource("2_kt4d1")
+emission_shape = 1
+emission_sphere_radius = 3.0
+gravity = Vector2(0, -100)
+initial_velocity_max = 71.43
+angular_velocity_max = 720.0
+orbit_velocity_min = -0.3
+radial_accel_max = 55.95
+angle_max = 222.9
+angle_curve = SubResource("Curve_7fl6u")
+scale_amount_max = 2.0
+color_initial_ramp = SubResource("Gradient_rf2q2")
+
+[node name="sound_mouseEat" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_mxs2a")
+
+[node name="leftScreenDetect" type="VisibleOnScreenNotifier2D" parent="." groups=["bottomMobs"]]
+position = Vector2(0.500001, -1)
+scale = Vector2(2.85, 1.4)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="leftScreenDetect" to="." method="_on_left_screen_detect_screen_exited"]

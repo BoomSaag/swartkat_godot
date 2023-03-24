@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://cjcqtppt58tcv"]
+
+[ext_resource type="Script" path="res://bird.gd" id="1_qg2xd"]
+[ext_resource type="Texture2D" uid="uid://d3yp2qn6ygva2" path="res://assets/images/Bird01_rest_F1.png" id="2_s0vu0"]
+[ext_resource type="Texture2D" uid="uid://d3ovs116f66cm" path="res://assets/images/feather.png" id="3_6x6pn"]
+[ext_resource type="Texture2D" uid="uid://bulp1pjck8b4u" path="res://assets/images/Bird01_rest_F2.png" id="3_xm0qh"]
+[ext_resource type="AudioStream" uid="uid://bcpbgqwumm5u6" path="res://assets/sound/Eat_Bird-01.ogg" id="4_hg4dc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t3eep"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_s0vu0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xm0qh")
+}],
+"loop": true,
+"name": &"rest",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f3pw4"]
+size = Vector2(41, 28)
+
+[sub_resource type="Curve" id="Curve_7e74j"]
+min_value = -1.0
+_data = [Vector2(0.00581396, -1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="bird" type="Area2D" groups=["collectibles"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_qg2xd")
+despawnTime = 4.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_t3eep")
+animation = &"rest"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_f3pw4")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+lifetime = 2.0
+one_shot = true
+speed_scale = 0.5
+explosiveness = 1.0
+texture = ExtResource("3_6x6pn")
+emission_shape = 1
+emission_sphere_radius = 23.41
+direction = Vector2(10, -45)
+initial_velocity_min = 344.45
+initial_velocity_max = 583.34
+hue_variation_curve = SubResource("Curve_7e74j")
+
+[node name="EatBirdSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_hg4dc")
+pitch_scale = 1.1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

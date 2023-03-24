@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://bb4yechdv2jgx"]
+
+[ext_resource type="FontFile" uid="uid://clup1xjlkr6e0" path="res://assets/fonts/MatrixSans-Video.ttf" id="1_d0xpr"]
+[ext_resource type="Script" path="res://score_label.gd" id="2_ca76v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ois3k"]
+font = ExtResource("1_d0xpr")
+font_color = Color(0.12549, 1, 0, 1)
+outline_size = 2
+outline_color = Color(1, 0, 0, 1)
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 0.431373)
+
+[sub_resource type="LabelSettings" id="LabelSettings_willn"]
+font = ExtResource("1_d0xpr")
+font_size = 40
+font_color = Color(1, 0.984314, 0, 1)
+outline_size = 2
+outline_color = Color(1, 0, 0, 1)
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 0.431373)
+
+[node name="ScoreLabel" type="Label"]
+offset_left = 5.0
+offset_top = 4.0
+offset_right = 111.0
+offset_bottom = 30.0
+text = "SCORE:"
+label_settings = SubResource("LabelSettings_ois3k")
+script = ExtResource("2_ca76v")
+
+[node name="TotalScore" type="Label" parent="."]
+offset_left = 65.0
+offset_top = -3.0
+offset_right = 161.0
+offset_bottom = 52.0
+text = "0"
+label_settings = SubResource("LabelSettings_willn")
+
+[node name="HiScoreLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 363.0
+offset_right = 415.0
+offset_bottom = 24.0
+grow_horizontal = 2
+text = "HI-SCORE:"
+label_settings = SubResource("LabelSettings_ois3k")
+
+[node name="HiScore" type="Label" parent="HiScoreLabel"]
+offset_left = 90.0
+offset_top = -3.0
+offset_right = 186.0
+offset_bottom = 52.0
+text = "0"
+label_settings = SubResource("LabelSettings_willn")

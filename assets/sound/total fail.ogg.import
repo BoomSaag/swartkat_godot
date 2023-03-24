@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://eb2luwucnw0w"
+path="res://.godot/imported/total fail.ogg-47308653f168d97a178aedcfd51e2e30.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/sound/total fail.ogg"
+dest_files=["res://.godot/imported/total fail.ogg-47308653f168d97a178aedcfd51e2e30.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

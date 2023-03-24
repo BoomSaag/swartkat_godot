@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://dtprn063ppity"]
+
+[ext_resource type="Script" path="res://Snake.gd" id="1_v8w1g"]
+[ext_resource type="Texture2D" uid="uid://dtsnfuvph6ajd" path="res://assets/images/Snake01_F1.png" id="2_yoqu6"]
+[ext_resource type="Texture2D" uid="uid://bbygq5i6duq25" path="res://assets/images/Snake01_F2.png" id="3_77hko"]
+[ext_resource type="AudioStream" uid="uid://ds4hg0i464f7j" path="res://assets/sound/Cat_Ouch.ogg" id="4_7vgdx"]
+[ext_resource type="Texture2D" uid="uid://dfrsg1v7gfrgg" path="res://assets/images/Heart01.png" id="5_htsa7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p7fn8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_yoqu6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_77hko")
+}],
+"loop": true,
+"name": &"rest",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xpm2h"]
+size = Vector2(47.5, 48)
+
+[sub_resource type="Gradient" id="Gradient_85a81"]
+offsets = PackedFloat32Array(0.366782, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="Curve" id="Curve_5qths"]
+min_value = -1.0
+_data = [Vector2(0.00581396, -1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Snake" type="Area2D" groups=["collectibles"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_v8w1g")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -11)
+sprite_frames = SubResource("SpriteFrames_p7fn8")
+animation = &"rest"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.75, -10)
+shape = SubResource("RectangleShape2D_xpm2h")
+
+[node name="CatOuchSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_7vgdx")
+pitch_scale = 0.8
+
+[node name="looseHearts" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+one_shot = true
+speed_scale = 0.5
+explosiveness = 1.0
+texture = ExtResource("5_htsa7")
+direction = Vector2(10, -45)
+initial_velocity_min = 344.45
+initial_velocity_max = 583.34
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+color_ramp = SubResource("Gradient_85a81")
+hue_variation_curve = SubResource("Curve_5qths")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

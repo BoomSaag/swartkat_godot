@@ -1,0 +1,89 @@
+[gd_scene load_steps=10 format=3 uid="uid://cfrifdvxax5jo"]
+
+[ext_resource type="Script" path="res://playerSprite.gd" id="1_17a8t"]
+[ext_resource type="Texture2D" uid="uid://bcefux7ava522" path="res://assets/images/SwartKat_Sprite_01.png" id="2_7tfdi"]
+[ext_resource type="AudioStream" uid="uid://5d56266ofof3" path="res://assets/sound/cartoon_jump.ogg" id="3_6mwew"]
+[ext_resource type="Texture2D" uid="uid://dywg30lcegipv" path="res://assets/images/poop.png" id="4_mhmaj"]
+[ext_resource type="Texture2D" uid="uid://dfrsg1v7gfrgg" path="res://assets/images/Heart01.png" id="5_p8o3i"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m3ysr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7tfdi")
+}],
+"loop": true,
+"name": &"rest",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3557i"]
+radius = 24.0
+height = 82.0
+
+[sub_resource type="Gradient" id="Gradient_0qp5c"]
+offsets = PackedFloat32Array(0.366782, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="Curve" id="Curve_t4m5e"]
+min_value = -1.0
+_data = [Vector2(0.00581396, -1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="playerSprite" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_17a8t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_m3ysr")
+animation = &"rest"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_3557i")
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+rotation = 1.57079
+stream = ExtResource("3_6mwew")
+pitch_scale = 1.2
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(31, 0)
+emitting = false
+amount = 20
+texture = ExtResource("4_mhmaj")
+initial_velocity_min = 216.67
+initial_velocity_max = 472.23
+angular_velocity_max = 56.0
+scale_amount_max = 1.5
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+show_behind_parent = true
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+pivot_offset = Vector2(50, 50)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(1, 0.184314, 1, 0.0941176)
+
+[node name="looseHearts" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+one_shot = true
+speed_scale = 0.5
+explosiveness = 1.0
+texture = ExtResource("5_p8o3i")
+direction = Vector2(10, -45)
+initial_velocity_min = 344.45
+initial_velocity_max = 583.34
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+color_ramp = SubResource("Gradient_0qp5c")
+hue_variation_curve = SubResource("Curve_t4m5e")
+
+[connection signal="ouch" from="." to="." method="_on_ouch"]

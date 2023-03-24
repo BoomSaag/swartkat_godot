@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://8rewgkaxkxko"]
+
+[ext_resource type="Texture2D" uid="uid://bcefux7ava522" path="res://assets/images/SwartKat_Sprite_01.png" id="1_4c3fu"]
+[ext_resource type="Script" path="res://player.gd" id="1_4l6a6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b4fjt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4c3fu")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wfx8u"]
+radius = 24.0
+height = 86.0
+
+[node name="Player" type="Area2D"]
+gravity_point_unit_distance = 2.359
+script = ExtResource("1_4l6a6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_b4fjt")
+animation = &"Walk"
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_wfx8u")

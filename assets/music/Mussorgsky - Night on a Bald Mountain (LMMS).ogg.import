@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://y5rfkyvbn3k4"
+path="res://.godot/imported/Mussorgsky - Night on a Bald Mountain (LMMS).ogg-97bd16f185bc34747f7e100bbb6b2488.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/music/Mussorgsky - Night on a Bald Mountain (LMMS).ogg"
+dest_files=["res://.godot/imported/Mussorgsky - Night on a Bald Mountain (LMMS).ogg-97bd16f185bc34747f7e100bbb6b2488.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
