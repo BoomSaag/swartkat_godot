@@ -17,9 +17,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3557i"]
-radius = 24.0
-height = 82.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xtxc"]
+size = Vector2(43, 75)
 
 [sub_resource type="Gradient" id="Gradient_0qp5c"]
 offsets = PackedFloat32Array(0.366782, 1)
@@ -40,9 +39,9 @@ sprite_frames = SubResource("SpriteFrames_m3ysr")
 animation = &"rest"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
+position = Vector2(-1.5, 0.500007)
 rotation = 1.57079
-shape = SubResource("CapsuleShape2D_3557i")
+shape = SubResource("RectangleShape2D_4xtxc")
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
 rotation = 1.57079

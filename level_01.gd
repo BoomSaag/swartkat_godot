@@ -70,7 +70,7 @@ func spawnBird():
 	# Checks that bird is not on the same platform as another
 	elif usedPlatforms.has(birdLocation.y):
 		pass
-	elif (birdLocation.x - player_to_birdOffset) < playerLocation.x and playerLocation.x < (birdLocation.x + player_to_birdOffset) and (birdLocation.y - player_to_birdOffset) < playerLocation.x and playerLocation.y < (birdLocation.y + player_to_birdOffset):
+	elif (birdLocation.x - player_to_birdOffset) < playerLocation.x and playerLocation.x < (birdLocation.x + player_to_birdOffset) and (birdLocation.y - player_to_birdOffset) < playerLocation.y and playerLocation.y < (birdLocation.y + player_to_birdOffset):
 		pass
 #	elif birdLocation.y < playerLocation.y - player_to_birdOffset or birdLocation.y > playerLocation.y + player_to_birdOffset:
 #		pass

@@ -45,7 +45,7 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		
-	position.x = clamp(position.x, 0 + $CollisionShape2D.shape.height/2, screen_size.x - $CollisionShape2D.shape.height/2)
+	position.x = clamp(position.x, 0 + $CollisionShape2D.shape.size.x/2, screen_size.x - $CollisionShape2D.shape.size.x/2)
 	
 	if velocity.x != 0:
 		$AnimatedSprite2D.play()
