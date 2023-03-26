@@ -8,12 +8,14 @@ var mouseDirection : int = 0
 func _ready():
 	
 	var randomChoice = randf_range(0.0,2.0)
+	$AnimatedSprite2D.play("run")
 	if randomChoice > 1.7:
 		speedMultiplier = 2.0
 	elif randomChoice > 1.5:
 		speedMultiplier = 1.6
 	else:
 		pass
+	$AnimatedSprite2D.speed_scale = speedMultiplier
 	mouseScore *= round(speedMultiplier)
 
 func mouseOrient(location, screenSize):

@@ -34,7 +34,7 @@ func spawnMouse():
 	var mouseEdge = [$CanvasLayer/mouseLeft.position, $CanvasLayer/mouseRight.position]
 	var mouse = mouseScene.instantiate()
 	
-	if randi_range(0, 200) > 195:
+	if randi_range(0, 200) > 190:
 		# mouseStart - 0 = Left, 1 = right
 		if $CanvasLayer/playerSprite.position.y < 600 and get_tree().get_nodes_in_group("bottomMobs").size() < 1:
 			$CanvasLayer.add_child(mouse)

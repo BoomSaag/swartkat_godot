@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cq8j7xfd5tc5d"]
+[gd_scene load_steps=10 format=3 uid="uid://cq8j7xfd5tc5d"]
 
 [ext_resource type="Script" path="res://mouse.gd" id="1_1gsmb"]
 [ext_resource type="Texture2D" uid="uid://blskaye5vxufe" path="res://assets/images/Mouse01.png" id="1_446ux"]
 [ext_resource type="Texture2D" uid="uid://5caaqi0iwpg" path="res://assets/images/dustParticle-1.png" id="2_kt4d1"]
+[ext_resource type="Texture2D" uid="uid://djd3iq5qy1lo0" path="res://assets/images/Mouse01_f1.png" id="3_acxyi"]
 [ext_resource type="AudioStream" uid="uid://ch0vndtb0pp85" path="res://assets/sound/Eat_Mouse-01.ogg" id="4_mxs2a"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6y6hj"]
@@ -14,6 +15,17 @@ animations = [{
 "loop": true,
 "name": &"rest",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_446ux")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_acxyi")
+}],
+"loop": true,
+"name": &"run",
+"speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oedsl"]
@@ -38,13 +50,14 @@ mouseScore = 150
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_6y6hj")
-animation = &"rest"
+animation = &"run"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_oedsl")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+visible = false
 position = Vector2(1, 9)
 amount = 30
 lifetime = 0.4
