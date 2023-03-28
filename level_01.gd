@@ -21,8 +21,10 @@ func _process(delta):
 	if playerAlive == false:
 		if Input.is_action_pressed("ui_select"):
 			_playerReset()
-#	if Input.is_action_pressed("ui_cancel"):
-#		$CanvasLayer/playerSprite.playerHealth = 0
+	
+	#Quit Game:
+	if Input.is_action_pressed("ui_cancel"):
+		get_tree().change_scene_to_file("res://main.tscn")
 
 func update_score(points):
 	score += points
@@ -34,7 +36,7 @@ func spawnMouse():
 	var mouseEdge = [$CanvasLayer/mouseLeft.position, $CanvasLayer/mouseRight.position]
 	var mouse = mouseScene.instantiate()
 	
-	if randi_range(0, 200) > 180:
+	if randi_range(0, 200) > 185:
 		# mouseStart - 0 = Left, 1 = right
 		if $CanvasLayer/playerSprite.position.y < 600 and get_tree().get_nodes_in_group("bottomMobs").size() < 1:
 			$CanvasLayer.add_child(mouse)

@@ -12,10 +12,9 @@ config_version=5
 
 config/name="Swarkat_Chowdown"
 config/description="The black cat wants to eat all the birdies."
-run/main_scene="res://level_01.tscn"
+run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.0", "Mobile")
 boot_splash/bg_color=Color(0.133333, 0.192157, 0.239216, 1)
-boot_splash/image="res://assets/images/SwartKatTitle_face1.png"
 boot_splash/fullsize=false
 config/icon="res://icon.png"
 

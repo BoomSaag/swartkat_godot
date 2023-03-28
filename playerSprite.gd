@@ -43,7 +43,7 @@ func _physics_process(delta):
 	if direction:
 		velocity.x = direction * SPEED
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, 100)
 		
 	position.x = clamp(position.x, 0 + $CollisionShape2D.shape.size.x/2, screen_size.x - $CollisionShape2D.shape.size.x/2)
 	
@@ -55,6 +55,5 @@ func _physics_process(delta):
 	monitorHealth()
 
 func _on_ouch():
-#	$looseHearts.emitting = true
 	if playerHealth > 0:
 		playerHealth -= 33
