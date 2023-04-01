@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 signal ouch
 signal death
+signal updateScore(points:int)
 
 @export var SPEED = 600.0
 @export var JUMP_VELOCITY = -900.0
@@ -39,7 +40,7 @@ func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("ui_left", "ui_right")
+	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
 		velocity.x = direction * SPEED
 	else:
@@ -49,7 +50,7 @@ func _physics_process(delta):
 	
 	if velocity.x != 0:
 		$AnimatedSprite2D.play()
-		$AnimatedSprite2D.flip_h = velocity.x > 0
+		$AnimatedSprite2D.flip_h = velocity.x < 0
 	
 	move_and_slide()
 	monitorHealth()

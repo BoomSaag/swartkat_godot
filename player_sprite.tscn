@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cfrifdvxax5jo"]
 
 [ext_resource type="Script" path="res://playerSprite.gd" id="1_17a8t"]
-[ext_resource type="Texture2D" uid="uid://bcefux7ava522" path="res://assets/images/SwartKat_Sprite_01.png" id="2_7tfdi"]
+[ext_resource type="Texture2D" uid="uid://c1g7ys6330i0m" path="res://assets/images/blackCat.png" id="2_xr4qf"]
 [ext_resource type="AudioStream" uid="uid://5d56266ofof3" path="res://assets/sound/cartoon_jump.ogg" id="3_6mwew"]
 [ext_resource type="Texture2D" uid="uid://dywg30lcegipv" path="res://assets/images/poop.png" id="4_mhmaj"]
 [ext_resource type="Texture2D" uid="uid://dfrsg1v7gfrgg" path="res://assets/images/Heart01.png" id="5_p8o3i"]
@@ -10,7 +10,7 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_7tfdi")
+"texture": ExtResource("2_xr4qf")
 }],
 "loop": true,
 "name": &"rest",
@@ -18,7 +18,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4xtxc"]
-size = Vector2(43, 75)
+size = Vector2(49.9999, 81)
 
 [sub_resource type="Gradient" id="Gradient_0qp5c"]
 offsets = PackedFloat32Array(0.366782, 1)
@@ -35,11 +35,12 @@ collision_mask = 3
 script = ExtResource("1_17a8t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-9, -7)
 sprite_frames = SubResource("SpriteFrames_m3ysr")
 animation = &"rest"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1.5, 0.500007)
+position = Vector2(5.50001, -3.00005)
 rotation = 1.57079
 shape = SubResource("RectangleShape2D_4xtxc")
 

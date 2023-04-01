@@ -11,11 +11,10 @@ func _process(delta):
 func _ready():
 	$AnimatedSprite2D.play()
 
-func _on_body_entered(body):
+func _on_body_entered(body:CharacterBody2D):
 	
 	# Add bird score to player score and delete bird
-	get_parent().get_parent().update_score(birdScore)
-#	get_tree().call_group("levels", "update_score",birdScore)
+	body.emit_signal("updateScore",birdScore)
 	$CollisionShape2D.set_deferred("disabled", true)
 	$AnimatedSprite2D.hide()
 	$EatBirdSound.play()

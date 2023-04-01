@@ -7,36 +7,22 @@ var state = 1
 func _ready():
 	screenSize = get_viewport_rect().size
 	$MenuMusic.play()
+	$GameTitle/AnimationPlayer.play("titleGrow")
+	$GameTitle/AnimationPlayer.queue("title_pulse")
 
-# Title animation
-func titlePulse(speed):
-	var minSize = 720
-	var maxSize = 750
-	var growRate = 20
+func time():
+	var number = randi()
+	if await get_tree().create_timer(2).timeout:
+		print(number)
+		print(number % 10)
 	
-	while state == 0:
-		if $GameTitle.size.y < maxSize:
-			$GameTitle.size.y += growRate * speed
-			await get_tree().create_timer(1).timeout
-		else:
-			state = 1
-			
-	while state == 1:
-		if $GameTitle.size.y > minSize:
-			$GameTitle.size.y -= growRate * speed
-			await get_tree().create_timer(1).timeout
-		else:
-			state = 0
-			
-
-
 func _process(delta):
-	titlePulse(delta)
+	time()
 	
 
 # Menu buttons:
 func _on_new_game_button_up():
-	get_tree().change_scene_to_file("res://level_01.tscn")
+	get_tree().change_scene_to_file("res://inter_mission_screen.tscn")
 
 func _on_controls_button_up():
 	$controlPanel.visible = true

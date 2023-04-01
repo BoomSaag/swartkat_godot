@@ -4,6 +4,7 @@ extends Area2D
 @export var mouseScore : int = 100
 var speedMultiplier : float = 1.0
 var mouseDirection : int = 0
+var velocity = Vector2.ZERO
 
 func _ready():
 	
@@ -29,7 +30,7 @@ func mouseOrient(location, screenSize):
 		$AnimatedSprite2D.flip_h = false
 
 func _physics_process(delta):
-	var velocity = Vector2.ZERO
+	
 	if mouseDirection == 1:
 		velocity = Vector2.LEFT * mouseSpeed * speedMultiplier
 	else:	
@@ -44,7 +45,7 @@ func _on_left_screen_detect_screen_exited():
 
 func _on_body_entered(body):
 	# Add mouse score to player score and delete mouse
-	get_parent().get_parent().update_score(mouseScore)
+	body.emit_signal("updateScore",mouseScore)
 	$CollisionShape2D.set_deferred("disabled", true)
 	$AnimatedSprite2D.hide()
 	$sound_mouseEat.play()
