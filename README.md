@@ -8,7 +8,8 @@ It is still in very early stages of development and I plan to add more mobs and 
 ___
 <b>Controls:</b>
 
-Arrow Keys - Left and Right
-Space / Up Arrow - Jump
-Ctrl - press and see
+Arrow Keys - Left and Right </br>
+Space / Up Arrow - Jump</br>
+Ctrl - press and see</br>
+Esc - exit back to main menu
 
