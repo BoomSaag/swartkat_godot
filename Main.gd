@@ -62,7 +62,7 @@ func updateName():
 
 func _ready():
 	screenSize = get_viewport_rect().size
-#	$MenuMusic.play()
+	$MenuMusic.play()
 	$GameTitle/AnimationPlayer.play("titleGrow")
 	$GameTitle/AnimationPlayer.queue("title_pulse")
 	

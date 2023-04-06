@@ -16,7 +16,7 @@ var score = 0
 
 func _ready():
 	screenSize = get_viewport_rect().size
-#	$CanvasLayer/Music_lvl01.play()
+	$CanvasLayer/Music_lvl01.play()
 
 
 func _process(delta):
