@@ -1,10 +1,19 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjcqtppt58tcv"]
+[gd_scene load_steps=12 format=3 uid="uid://cjcqtppt58tcv"]
 
 [ext_resource type="Script" path="res://bird.gd" id="1_qg2xd"]
 [ext_resource type="Texture2D" uid="uid://d3yp2qn6ygva2" path="res://assets/images/Bird01_rest_F1.png" id="2_s0vu0"]
 [ext_resource type="Texture2D" uid="uid://d3ovs116f66cm" path="res://assets/images/feather.png" id="3_6x6pn"]
 [ext_resource type="Texture2D" uid="uid://bulp1pjck8b4u" path="res://assets/images/Bird01_rest_F2.png" id="3_xm0qh"]
 [ext_resource type="AudioStream" uid="uid://bcpbgqwumm5u6" path="res://assets/sound/Eat_Bird-01.ogg" id="4_hg4dc"]
+[ext_resource type="Texture2D" uid="uid://cdvsxjtubld1n" path="res://assets/images/YellowBirdwHat.png" id="4_qffd5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4y67d"]
+atlas = ExtResource("4_qffd5")
+region = Rect2(0, 0, 36, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dpbp"]
+atlas = ExtResource("4_qffd5")
+region = Rect2(36, 0, 36, 28)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_t3eep"]
 animations = [{
@@ -17,7 +26,18 @@ animations = [{
 }],
 "loop": true,
 "name": &"rest",
-"speed": 3.0
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4y67d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dpbp")
+}],
+"loop": true,
+"name": &"yellow-rest",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f3pw4"]

@@ -9,6 +9,13 @@ func _process(delta):
 	queue_free()
 
 func _ready():
+	randomize()
+	var colours = randi_range(0,100)
+	if colours < 80:
+		$AnimatedSprite2D.play("rest")
+	else:
+		$AnimatedSprite2D.play("yellow-rest")
+		
 	$AnimatedSprite2D.play()
 
 func _on_body_entered(body:CharacterBody2D):

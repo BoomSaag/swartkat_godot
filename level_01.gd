@@ -4,8 +4,8 @@ extends Node2D
 
 signal nextLevel
 
-@export var snakeDifficulty : int = 85
-@export var winScore : int = 100
+var snakeDifficulty : int = 100 - Globals.chanceSnake
+@export var winScore : int = 3000
 @onready var spawnPoints = get_tree().get_nodes_in_group("markers")
 @onready var messageBox = $CanvasLayer/MessageLabel
 var screenSize = Vector2.ZERO
@@ -16,7 +16,7 @@ var score = 0
 
 func _ready():
 	screenSize = get_viewport_rect().size
-	$CanvasLayer/Music_lvl01.play()
+#	$CanvasLayer/Music_lvl01.play()
 
 
 func _process(delta):
@@ -104,7 +104,7 @@ func _on_spawn_timer_timeout():
 
 
 func _playerDeath():
-	$CanvasLayer/ScoreLabel.saveScore()
+	$CanvasLayer/ScoreLabel.saveScore(Globals.playerIndex)
 	$CanvasLayer/playerSprite.set_physics_process(false)
 	$CanvasLayer/playerSprite/CollisionShape2D.set_deferred("disabled", true)
 	$CanvasLayer/playerSprite.hide()
