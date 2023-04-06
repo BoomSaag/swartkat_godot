@@ -4,7 +4,7 @@ extends Node2D
 
 signal nextLevel
 
-@export var snakeDifficulty : int = 85
+var snakeDifficulty : int = 100 - Globals.chanceSnake
 @export var winScore : int = 100
 @onready var spawnPoints = get_tree().get_nodes_in_group("markers")
 @onready var messageBox = $CanvasLayer/MessageLabel

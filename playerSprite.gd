@@ -49,8 +49,10 @@ func _physics_process(delta):
 	position.x = clamp(position.x, 0 + $CollisionShape2D.shape.size.x/2, screen_size.x - $CollisionShape2D.shape.size.x/2)
 	
 	if velocity.x != 0:
-		$AnimatedSprite2D.play()
+		$AnimatedSprite2D.play("run")
 		$AnimatedSprite2D.flip_h = velocity.x < 0
+	else:
+		$AnimatedSprite2D.play("rest")
 	
 	move_and_slide()
 	monitorHealth()

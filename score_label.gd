@@ -1,28 +1,22 @@
 extends Label
 
 var playerScore : int = 0
-var hiScore : int = 0
-var savePath = "user://score.save"
+var currentRecord : Dictionary = {"name":Globals.playerName,"hiscore":0}
+var savePath = Globals.savePath
 
-func saveScore():
+func saveScore(i):
 	var file = FileAccess.open(savePath, FileAccess.WRITE)
-	file.store_var(hiScore)
-
-func loadScore():
-	if FileAccess.file_exists(savePath):
-		print("File Found")
-		var file = FileAccess.open(savePath,FileAccess.READ)
-		hiScore = file.get_var()
-	else:
-		print("File not Found")
-		hiScore = 0
+	file.store_var(Globals.playerRecord)
+	print(Globals.playerRecord[i])
 
 func _ready():
-	loadScore()
-	$HiScoreLabel/HiScore.text = str(hiScore)
+	currentRecord.name = Globals.playerName
+	$HiScoreLabel/HiScore.text = str(Globals.hiScore)
 
 func _process(delta):
 	playerScore = int($TotalScore.text)
-	if playerScore > hiScore:
-		hiScore = playerScore
-		$HiScoreLabel/HiScore.text = str(hiScore)
+	if playerScore > Globals.hiScore:
+		Globals.playerRecord[Globals.playerIndex].hiscore = playerScore
+		Globals.hiScore = playerScore
+		print(Globals.playerRecord[Globals.playerIndex].hiscore)
+		$HiScoreLabel/HiScore.text = str(Globals.playerRecord[Globals.playerIndex].hiscore)

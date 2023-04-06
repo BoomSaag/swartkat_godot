@@ -1,0 +1,105 @@
+[gd_scene load_steps=12 format=3 uid="uid://bkmpd28013cp1"]
+
+[ext_resource type="FontFile" uid="uid://clup1xjlkr6e0" path="res://assets/fonts/MatrixSans-Video.ttf" id="1_ebawp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hln4g"]
+font = ExtResource("1_ebawp")
+font_size = 52
+font_color = Color(0.968627, 1, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6xqog"]
+font = ExtResource("1_ebawp")
+font_size = 30
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_5jjyq"]
+color = Color(0.509804, 0.509804, 0.509804, 1)
+thickness = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pig3e"]
+bg_color = Color(0.12549, 1, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f66kb"]
+bg_color = Color(0.12549, 1, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_r7yrr"]
+font = ExtResource("1_ebawp")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ynitk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8t4xg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4n0n8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ocwbi"]
+
+[node name="CenterContainer" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuBox" type="VBoxContainer" parent="."]
+layout_direction = 1
+layout_mode = 2
+alignment = 1
+
+[node name="SettingsLabel" type="Label" parent="MenuBox"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Settings Menu"
+label_settings = SubResource("LabelSettings_hln4g")
+horizontal_alignment = 1
+
+[node name="Spacer" type="Label" parent="MenuBox"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="ChanceSnake" type="Label" parent="MenuBox"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "Chance of Snakes"
+label_settings = SubResource("LabelSettings_6xqog")
+
+[node name="SnakeBox" type="HBoxContainer" parent="MenuBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="SnakeSlider" type="HSlider" parent="MenuBox/SnakeBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxLine_5jjyq")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_pig3e")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_f66kb")
+min_value = 10.0
+step = 10.0
+value = 20.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="SnakeValue" type="Label" parent="MenuBox/SnakeBox"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Easy"
+label_settings = SubResource("LabelSettings_r7yrr")
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Label" parent="MenuBox"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="MenuBox"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.12549, 1, 0, 1)
+theme_override_colors/font_hover_color = Color(0.968627, 1, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.12549, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0.968627, 1, 0, 1)
+theme_override_fonts/font = ExtResource("1_ebawp")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ynitk")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8t4xg")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4n0n8")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ocwbi")
+text = "Back"
