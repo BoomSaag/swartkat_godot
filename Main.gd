@@ -151,6 +151,13 @@ func _on_settings_button_up():
 	$controlPanel.hide()
 	$GameTitle.hide()
 
+func _on_music_slider_value_changed(value):
+	Globals.musicVolume = value - 100.0
+	$MenuMusic.volume_db = Globals.musicVolume
+	$settingsMenu/CenterContainer/MenuBox/musicBox/volumeLevel.text = str(round(((value - 60)/40)*100))+"%"
+	print(Globals.musicVolume)
+	
+
 func _on_snake_slider_value_changed(value):
 	
 	Globals.chanceSnake = int(value)
@@ -172,4 +179,7 @@ func _on_close_controls_button_up():
 # Quit Game:
 func _on_quit_game_button_up():
 	get_tree().quit()
+
+
+
 

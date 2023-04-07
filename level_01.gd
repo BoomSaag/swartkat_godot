@@ -16,6 +16,7 @@ var score = 0
 
 func _ready():
 	screenSize = get_viewport_rect().size
+	$CanvasLayer/Music_lvl01.volume_db = Globals.musicVolume
 	$CanvasLayer/Music_lvl01.play()
 
 

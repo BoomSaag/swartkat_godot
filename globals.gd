@@ -1,6 +1,7 @@
 extends Node
 
 var playerName : String = "User"
+var musicVolume : float = 0.0
 var savePath = "user://playerScore.save"
 var lastPlayer_path = "user://lastPlayer.save"
 var birdScene: PackedScene = preload("res://bird.tscn")
