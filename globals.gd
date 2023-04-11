@@ -15,6 +15,10 @@ var playerRecord : Dictionary = {}
 var playerIndex : int = 0
 var hiScore : int = 0
 
+# Settings File
+var settingsPath = "user://settings.save"
+var settings : Dictionary = {"lastPlayer": 0,"musicVol": 100, "soundVol": 100, "snakes": 20}
+
 # Dictionary of levels
 var levels : Dictionary = {
 	0: {"path":"res://level_01.tscn", "name":"--Level 01--"},

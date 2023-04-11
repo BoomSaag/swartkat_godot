@@ -15,10 +15,10 @@ var score = 0
 
 
 func _ready():
+	get_tree().call_group("collectibles", "queue_free()")
 	screenSize = get_viewport_rect().size
 	$CanvasLayer/Music_lvl01.volume_db = Globals.musicVolume
 	$CanvasLayer/Music_lvl01.play()
-
 
 func _process(delta):
 	randomize()
@@ -49,16 +49,18 @@ func spawnMouse():
 	var edgeLeft = $CanvasLayer/mouseLeft.position
 	var edgeRight = $CanvasLayer/mouseRight.position
 	var mouseEdge = [$CanvasLayer/mouseLeft.position, $CanvasLayer/mouseRight.position]
-	var mouse = Globals.mouseScene.instantiate()
+	var mouse
 	
 	if randi_range(0, 200) > 185:
+		mouse = Globals.mouseScene.instantiate()
 		# mouseStart - 0 = Left, 1 = right
 		if $CanvasLayer/playerSprite.position.y < 600 and get_tree().get_nodes_in_group("bottomMobs").size() < 1:
 			$CanvasLayer.add_child(mouse)
 			mouse.position = mouseEdge[randi_range(0,1)]
 			mouse.mouseOrient(mouse.position, screenSize)
 		else:
-			pass
+			$CanvasLayer.add_child(mouse)
+			mouse.queue_free()
 
 
 func spawnBird():
@@ -69,15 +71,15 @@ func spawnBird():
 	var playerLocation = get_node("CanvasLayer/playerSprite").position
 	var pointIndex = randi() % spawnPoints.size()
 	var birdLocation = spawnPoints[pointIndex].position
-	var bird = Globals.birdScene.instantiate()
-	
+	var bird
+
 	# Chance of snake:
 	var snakeChance = randi_range(0, 100)
 	
 	if snakeChance > snakeDifficulty:
 		bird = Globals.snakeScene.instantiate()
 	else:
-		pass
+		bird = Globals.birdScene.instantiate()
 	
 	# Checks if another bird is already at the location before spawning a new bird.
 	for i in get_tree().get_nodes_in_group("collectibles"):
@@ -85,12 +87,15 @@ func spawnBird():
 		usedPlatforms.append(i.position.y)
 		
 	if currentBirds.has(birdLocation):
-		pass
+		$CanvasLayer.add_child(bird)
+		bird.queue_free()
 	# Checks that bird is not on the same platform as another
 	elif usedPlatforms.has(birdLocation.y):
-		pass
+		$CanvasLayer.add_child(bird)
+		bird.queue_free()
 	elif (birdLocation.x - offset) < playerLocation.x and playerLocation.x < (birdLocation.x + offset) and (birdLocation.y - offset) < playerLocation.y and playerLocation.y < (birdLocation.y + offset):
-		pass
+		$CanvasLayer.add_child(bird)
+		bird.queue_free()
 #	elif birdLocation.y < playerLocation.y - player_to_birdOffset or birdLocation.y > playerLocation.y + player_to_birdOffset:
 #		pass
 		
@@ -102,6 +107,7 @@ func spawnBird():
 func _on_spawn_timer_timeout():
 	spawnBird()
 	spawnMouse()
+	print_orphan_nodes()
 
 
 func _playerDeath():

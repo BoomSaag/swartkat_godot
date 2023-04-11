@@ -19,14 +19,14 @@ func _on_item_pressed(id):
 	Globals.playerName = popup.get_item_text(id)
 	Globals.hiScore = Globals.playerRecord[id].hiscore
 	Globals.playerIndex = id
-	
-	# Save player index to file
-	var file = FileAccess.open(playPath, FileAccess.WRITE)
-	file.store_var(id)
+	Globals.settings.lastPlayer = id
 	get_parent().get_parent().get_parent().get_parent().updateName()
 
-func _on_main_user_added(name, idx):
-	userRecord = Globals.playerRecord
+func _on_main_user_added(playerName, idx):
+	var index : int = Globals.playerRecord.size()
+	if index > 0:
+		Globals.playerIndex = index-1
+	print(Globals.playerRecord)
 	popup.add_item(name)
 
 

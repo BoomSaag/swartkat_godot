@@ -1,7 +1,8 @@
 extends Control
 
-signal userAdded(name, idx)
+signal userAdded(playerName, idx)
 signal loadNames
+var settingsPath = Globals.settingsPath
 var indexFile_path = Globals.lastPlayer_path
 var screenSize = Vector2.ZERO
 var state = 1
@@ -32,9 +33,13 @@ End of Functions
 func launchCheck():
 	
 	# Load last user index - Who the last player was
-	if FileAccess.file_exists(indexFile_path):
-		var indexFile = FileAccess.open(indexFile_path, FileAccess.READ)
-		Globals.playerIndex = indexFile.get_var()
+	if FileAccess.file_exists(settingsPath):
+		var settingsFile = FileAccess.open(settingsPath, FileAccess.READ)
+		var settings = settingsFile.get_var()
+		Globals.playerIndex = settings.lastPlayer
+		Globals.chanceSnake = settings.snakes
+		Globals.musicVolume = settings.musicVol - 100
+		
 	else:
 		Globals.playerIndex = 0
 	
@@ -44,8 +49,7 @@ func launchCheck():
 		Globals.playerRecord = file.get_var()
 		Globals.playerName = Globals.playerRecord[Globals.playerIndex].name
 		Globals.hiScore = Globals.playerRecord[Globals.playerIndex].hiscore
-		print("file loaded")
-		emit_signal("loadNames")
+
 	else:
 		Globals.hiScore = 0
 		Globals.firstGame = true
@@ -62,12 +66,16 @@ func updateName():
 
 func _ready():
 	screenSize = get_viewport_rect().size
-	$MenuMusic.play()
 	$GameTitle/AnimationPlayer.play("titleGrow")
 	$GameTitle/AnimationPlayer.queue("title_pulse")
 	
 	launchCheck()
 	
+	var musSlider = Globals.musicVolume + 100
+	$MenuMusic.volume_db = Globals.musicVolume
+	$settingsMenu/CenterContainer/MenuBox/musicBox/musicSlider.value = musSlider
+	$settingsMenu/CenterContainer/MenuBox/musicBox/volumeLevel.text = str(round(((musSlider - 70)/30)*100))+"%"
+	$MenuMusic.play()
 	# Load current player name:
 	updateName()
 	
@@ -78,6 +86,13 @@ func _ready():
 	
 # Menu buttons:
 func _on_new_game_button_up():
+	
+	Globals.settings.lastPlayer = Globals.playerIndex
+	var file = FileAccess.open(settingsPath, FileAccess.WRITE)
+	var recordFile = FileAccess.open(Globals.savePath, FileAccess.WRITE)
+	file.store_var(Globals.settings)
+	recordFile.store_var(Globals.playerRecord)
+	
 	get_tree().change_scene_to_file("res://inter_mission_screen.tscn")
 
 # Access User Menu:
@@ -153,14 +168,16 @@ func _on_settings_button_up():
 
 func _on_music_slider_value_changed(value):
 	Globals.musicVolume = value - 100.0
+	Globals.settings.musicVol = value
 	$MenuMusic.volume_db = Globals.musicVolume
-	$settingsMenu/CenterContainer/MenuBox/musicBox/volumeLevel.text = str(round(((value - 60)/40)*100))+"%"
-	print(Globals.musicVolume)
+	$settingsMenu/CenterContainer/MenuBox/musicBox/volumeLevel.text = str(round(((value - 70)/30)*100))+"%"
+
 	
 
 func _on_snake_slider_value_changed(value):
 	
 	Globals.chanceSnake = int(value)
+	Globals.settings.snakes = int(value)
 	snakesCheck()
 	$settingsMenu/CenterContainer/MenuBox/SnakeBox/SnakeValue.text = str(Globals.chanceSnake) + " " + difficulty
 
@@ -176,8 +193,14 @@ func _on_controls_button_up():
 func _on_close_controls_button_up():
 	$controlPanel.hide()
 
+
 # Quit Game:
 func _on_quit_game_button_up():
+	Globals.settings.lastPlayer = Globals.playerIndex
+	var file = FileAccess.open(settingsPath, FileAccess.WRITE)
+	var recordFile = FileAccess.open(Globals.savePath, FileAccess.WRITE)
+	file.store_var(Globals.settings)
+	recordFile.store_var(Globals.playerRecord)
 	get_tree().quit()
 
 
