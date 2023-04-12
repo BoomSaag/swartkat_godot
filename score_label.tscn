@@ -30,6 +30,7 @@ label_settings = SubResource("LabelSettings_ois3k")
 script = ExtResource("2_ca76v")
 
 [node name="TotalScore" type="Label" parent="."]
+layout_mode = 0
 offset_left = 65.0
 offset_top = -3.0
 offset_right = 161.0
@@ -50,6 +51,7 @@ text = "HI-SCORE:"
 label_settings = SubResource("LabelSettings_ois3k")
 
 [node name="HiScore" type="Label" parent="HiScoreLabel"]
+layout_mode = 0
 offset_left = 90.0
 offset_top = -3.0
 offset_right = 186.0

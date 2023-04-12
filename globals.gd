@@ -13,6 +13,7 @@ var chanceSnake : int = 20
 var currentLevel : int = 0
 var playerRecord : Dictionary = {}
 var playerIndex : int = 0
+var currentScore : int
 var hiScore : int = 0
 
 # Settings File

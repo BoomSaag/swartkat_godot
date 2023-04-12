@@ -11,11 +11,10 @@ var snakeDifficulty : int = 100 - Globals.chanceSnake
 var screenSize = Vector2.ZERO
 var playerAlive = true
 var levelBeaten = false
-var score = 0
+var score = Globals.currentScore
 
 
 func _ready():
-	get_tree().call_group("collectibles", "queue_free()")
 	screenSize = get_viewport_rect().size
 	$CanvasLayer/Music_lvl01.volume_db = Globals.musicVolume
 	$CanvasLayer/Music_lvl01.play()
@@ -160,7 +159,7 @@ func _on_player_sprite_update_score(points):
 
 
 func _on_next_level():
-	
+	Globals.currentScore = score
 	messageBox.text = "YOU WIN!!!"
 	$CanvasLayer/playerSprite.set_physics_process(false)
 	$CanvasLayer/playerSprite/CollisionShape2D.set_deferred("disabled", true)

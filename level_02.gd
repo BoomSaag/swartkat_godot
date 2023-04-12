@@ -5,13 +5,13 @@ extends Node2D
 signal nextLevel
 
 var snakeDifficulty : int = 100 - Globals.chanceSnake
-@export var winScore : int = 100
+@export var winScore : int = 7000
 @onready var spawnPoints = get_tree().get_nodes_in_group("markers")
 @onready var messageBox = $CanvasLayer/MessageLabel
 var screenSize = Vector2.ZERO
 var playerAlive = true
 var levelBeaten = false
-var score = 0
+var score = Globals.currentScore
 
 
 func _ready():
@@ -48,16 +48,18 @@ func spawnMouse():
 	var edgeLeft = $CanvasLayer/mouseLeft.position
 	var edgeRight = $CanvasLayer/mouseRight.position
 	var mouseEdge = [$CanvasLayer/mouseLeft.position, $CanvasLayer/mouseRight.position]
-	var mouse = Globals.mouseScene.instantiate()
+	
 	
 	if randi_range(0, 200) > 185:
+		var mouse = Globals.mouseScene.instantiate()
 		# mouseStart - 0 = Left, 1 = right
 		if $CanvasLayer/playerSprite.position.y < 600 and get_tree().get_nodes_in_group("bottomMobs").size() < 1:
 			$CanvasLayer.add_child(mouse)
 			mouse.position = mouseEdge[randi_range(0,1)]
 			mouse.mouseOrient(mouse.position, screenSize)
 		else:
-			pass
+			$CanvasLayer.add_child(mouse)
+			mouse.queue_free()
 
 
 func spawnBird():
@@ -68,7 +70,7 @@ func spawnBird():
 	var playerLocation = get_node("CanvasLayer/playerSprite").position
 	var pointIndex = randi() % spawnPoints.size()
 	var birdLocation = spawnPoints[pointIndex].position
-	var bird = Globals.birdScene.instantiate()
+	var bird
 	
 	# Chance of snake:
 	var snakeChance = randi_range(0, 100)
@@ -76,7 +78,7 @@ func spawnBird():
 	if snakeChance > snakeDifficulty:
 		bird = Globals.snakeScene.instantiate()
 	else:
-		pass
+		bird = Globals.birdScene.instantiate()
 	
 	# Checks if another bird is already at the location before spawning a new bird.
 	for i in get_tree().get_nodes_in_group("collectibles"):
@@ -84,14 +86,16 @@ func spawnBird():
 		usedPlatforms.append(i.position.y)
 		
 	if currentBirds.has(birdLocation):
-		pass
+		$CanvasLayer.add_child(bird)
+		bird.queue_free()
 	# Checks that bird is not on the same platform as another
 	elif usedPlatforms.has(birdLocation.y):
-		pass
+		$CanvasLayer.add_child(bird)
+		bird.queue_free()
 	elif (birdLocation.x - offset) < playerLocation.x and playerLocation.x < (birdLocation.x + offset) and (birdLocation.y - offset) < playerLocation.y and playerLocation.y < (birdLocation.y + offset):
-		pass
-#	elif birdLocation.y < playerLocation.y - player_to_birdOffset or birdLocation.y > playerLocation.y + player_to_birdOffset:
-#		pass
+		$CanvasLayer.add_child(bird)
+		bird.queue_free()
+
 		
 	else:
 		$CanvasLayer.add_child(bird)
@@ -154,6 +158,7 @@ func _on_player_sprite_update_score(points):
 
 func _on_next_level():
 	
+	Globals.currentScore = score
 	messageBox.text = "YOU WIN!!!"
 	$CanvasLayer/playerSprite.set_physics_process(false)
 	$CanvasLayer/playerSprite/CollisionShape2D.set_deferred("disabled", true)

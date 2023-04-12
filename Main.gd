@@ -57,12 +57,37 @@ func launchCheck():
 		$MenuButtonBox.hide()
 		$GameTitle.hide()
 		$NewUserMenu.show()
+		
 
 # Update the players name in the whole of the Main Menu
 func updateName():
 	$MenuButtonBox/userName.text = "Hello " + Globals.playerName + "!"
 	$userMenu/userCenterContainer/UserMenuBox/userName.text = "Current Player: \n" + Globals.playerName
+
+# Get the player Names and HiScores for the HiScore Panel:
+func populateScores(records : Dictionary):
 	
+	var names : String
+	var scores : String
+	var nameScore : Array
+	var topSpots : int = 5
+	
+	for player in records:
+		nameScore.append(records[player].values())
+	
+	# sort list descending
+	nameScore.sort_custom(func(a, b): return a[1] > b[1])
+	
+	# Populate the HiScores in Menu:
+	for i in nameScore:
+		if topSpots > 0:
+			names += i[0] + "\n"
+			scores += " - " + var_to_str(i[1]) + "\n"
+			topSpots -= 1
+	topSpots = 5
+	$"hiscoreScreen/VBoxContainer/HBoxScores/VBox-playerNames/playerNames".text = names
+	$"hiscoreScreen/VBoxContainer/HBoxScores/VBox-Score/playerScores".text = scores
+
 
 func _ready():
 	screenSize = get_viewport_rect().size
@@ -78,7 +103,7 @@ func _ready():
 	$MenuMusic.play()
 	# Load current player name:
 	updateName()
-	
+	populateScores(Globals.playerRecord)
 	# Snake chance setting:
 	snakesCheck()
 	$settingsMenu/CenterContainer/MenuBox/SnakeBox/SnakeValue.text = str(Globals.chanceSnake) + " " + difficulty
@@ -92,7 +117,8 @@ func _on_new_game_button_up():
 	var recordFile = FileAccess.open(Globals.savePath, FileAccess.WRITE)
 	file.store_var(Globals.settings)
 	recordFile.store_var(Globals.playerRecord)
-	
+	Globals.currentScore = 0
+	Globals.currentLevel = 0
 	get_tree().change_scene_to_file("res://inter_mission_screen.tscn")
 
 # Access User Menu:
@@ -101,6 +127,7 @@ func _on_change_user_button_up():
 	$userMenu.show()
 	$controlPanel.hide()
 	$GameTitle.hide()
+	emit_signal("loadNames")
 
 func _on_add_user_button_button_up():
 	$userMenu.hide()
@@ -137,6 +164,7 @@ func _on_line_edit_text_submitted(new_text:String):
 	else:
 		Globals.playerName = new_text
 		Globals.playerRecord[Globals.playerRecord.size()] = {"name": new_text, "hiscore": 0}
+		Globals.hiScore = 0
 		$NewUserMenu.hide()
 		$MenuButtonBox.hide()
 		if Globals.firstGame:
@@ -188,11 +216,23 @@ func _on_back_button_button_up():
 
 # Access Controls Menu:
 func _on_controls_button_up():
-	$controlPanel.show()
+	if $controlPanel.visible:
+		$controlPanel.hide()
+	else:
+		$controlPanel.show()
 
 func _on_close_controls_button_up():
 	$controlPanel.hide()
 
+# Access HiScore Menu:
+func _on_high_scores_button_up():
+	if $hiscoreScreen.visible:
+		$hiscoreScreen.hide()
+	else:
+		$hiscoreScreen.show()
+
+func _on_close_hi_score_button_up():
+	$hiscoreScreen.hide()
 
 # Quit Game:
 func _on_quit_game_button_up():
@@ -202,7 +242,4 @@ func _on_quit_game_button_up():
 	file.store_var(Globals.settings)
 	recordFile.store_var(Globals.playerRecord)
 	get_tree().quit()
-
-
-
 

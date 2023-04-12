@@ -31,6 +31,7 @@ func _physics_process(delta):
 	# Handle Jump.
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		$JumpSound.play()
+		$AnimatedSprite2D.play("jump")
 		velocity.y = JUMP_VELOCITY
 		
 	if Input.is_action_pressed("attack"):
@@ -49,10 +50,16 @@ func _physics_process(delta):
 	position.x = clamp(position.x, 0 + $CollisionShape2D.shape.size.x/2, screen_size.x - $CollisionShape2D.shape.size.x/2)
 	
 	if velocity.x != 0:
-		$AnimatedSprite2D.play("run")
+		if is_on_floor():
+			$AnimatedSprite2D.play("run")
+		else:
+			$AnimatedSprite2D.play("jump")
 		$AnimatedSprite2D.flip_h = velocity.x < 0
 	else:
-		$AnimatedSprite2D.play("rest")
+		if is_on_floor():
+			$AnimatedSprite2D.play("rest")
+		else:
+			$AnimatedSprite2D.play("jump")
 	
 	move_and_slide()
 	monitorHealth()
