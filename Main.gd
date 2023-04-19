@@ -130,9 +130,13 @@ func _on_change_user_button_up():
 	emit_signal("loadNames")
 
 func _on_add_user_button_button_up():
-	$userMenu.hide()
-	$NewUserMenu.show()
-
+	if Globals.playerRecord.size()<10:
+		$userMenu.hide()
+		$NewUserMenu.show()
+	else:
+		$userMenu/userCenterContainer/UserMenuBox/ErrorPrompt.visibility_layer = 1
+		await get_tree().create_timer(5).timeout
+		$userMenu/userCenterContainer/UserMenuBox/ErrorPrompt.visibility_layer = 0 
 
 func _on_user_back_button_button_up():
 	$userMenu.hide()
@@ -171,9 +175,11 @@ func _on_line_edit_text_submitted(new_text:String):
 			$"NewUserMenu/NU-CenterContainer/VBoxContainer/entryBack".show()
 			$MenuButtonBox.show()
 			$GameTitle.show()
+			Globals.firstGame = false
 		else:
 			$userMenu.show()
 		emit_signal("userAdded", new_text, Globals.playerIndex)
+		emit_signal("loadNames")
 		updateName()
 	$"NewUserMenu/NU-CenterContainer/VBoxContainer/LineEdit".clear()
 

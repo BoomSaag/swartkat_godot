@@ -1,7 +1,5 @@
 extends MenuButton
 
-var userRecord : Dictionary = {}
-var playPath = Globals.lastPlayer_path
 var popup : Popup
 
 func _ready():
@@ -11,7 +9,6 @@ func _ready():
 # Load player names from record
 func _on_main_load_names():
 	popup.clear()
-	userRecord = Globals.playerRecord
 	for user in Globals.playerRecord:
 		popup.add_item(Globals.playerRecord[user].name)
 
@@ -23,6 +20,7 @@ func _on_item_pressed(id):
 	Globals.settings.lastPlayer = id
 	get_parent().get_parent().get_parent().get_parent().updateName()
 
+
 func _on_main_user_added(playerName, idx):
 	var index : int = Globals.playerRecord.size()
 	if index > 0:
@@ -30,6 +28,5 @@ func _on_main_user_added(playerName, idx):
 	print(Globals.playerRecord)
 	popup.add_item(name)
 
-
-
-
+func _on_delete_player_user_deleted():
+	_on_main_load_names()
