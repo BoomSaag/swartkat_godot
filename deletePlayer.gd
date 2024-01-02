@@ -18,8 +18,12 @@ func _on_main_load_names():
 func _on_item_pressed(id):
 	Globals.playerRecord.erase(id)
 	_on_main_load_names()
+	var newDict : Dictionary
+	for x in Globals.playerRecord:
+		newDict[x] = { "name" : Globals.playerRecord[x].name, "hiscore" : Globals.playerRecord[x].hiscore}
 	emit_signal("userDeleted")
-	print(Globals.playerRecord)
+
+	print(newDict)
 #	Globals.playerName = popup.get_item_text(id)
 #	Globals.hiScore = Globals.playerRecord[id].hiscore
 #	Globals.playerIndex = id
